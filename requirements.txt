@@ -1,0 +1,25 @@
+# Core Computer Vision
+ultralytics>=8.0.0  # YOLOv8
+opencv-python>=4.8.0
+numpy>=1.24.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Multi-Object Tracking
+filterpy>=1.4.5  # For Kalman filters
+scipy>=1.10.0
+
+# Hand Gesture Recognition
+mediapipe>=0.10.0
+
+# Dashboard & UI
+streamlit>=1.28.0
+plotly>=5.17.0
+pandas>=2.0.0
+
+# Utilities
+pillow>=10.0.0
+tqdm>=4.66.0
+pyyaml>=6.0
+matplotlib>=3.7.0
+

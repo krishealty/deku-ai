@@ -1,0 +1,105 @@
+# Traffic Intelligence System Configuration
+
+# Model Configuration
+model:
+  type: "yolov8l"  # Options: yolov8l, yolov8x
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+  device: "cuda"  # Options: cuda, cpu, mps (for Mac)
+  
+# Tracking Configuration
+tracking:
+  algorithm: "deepsort"  # Options: deepsort, bytetrack
+  max_age: 30  # Frames before track deletion
+  min_hits: 3  # Minimum detections before track confirmation
+  iou_threshold: 0.3
+
+# Detection Classes
+classes:
+  vehicles: [2, 3, 5, 6, 7]  # car, motorcycle, bus, truck, bicycle (COCO indices)
+  pedestrians: [0]  # person (COCO index)
+  
+# Analytics Configuration
+analytics:
+  # Density calculation
+  density_grid_size: 10  # Grid cells for density calculation
+  
+  # Flow rate
+  flow_lines:  # Virtual lines for counting
+    - name: "line_1"
+      start: [0.2, 0.5]
+      end: [0.8, 0.5]
+      direction: "horizontal"
+  
+  # Speed estimation
+  speed_estimation:
+    enabled: true
+    pixels_per_meter: 10.0  # Calibration value
+    fps: 30
+  
+  # Loitering detection
+  loitering:
+    enabled: true
+    time_threshold: 5.0  # seconds
+    distance_threshold: 50  # pixels
+  
+  # Heatmap
+  heatmap:
+    enabled: true
+    decay_rate: 0.95
+    update_interval: 1  # frames
+
+# Anomaly Detection
+anomaly_detection:
+  # Sudden stoppage
+  sudden_stoppage:
+    enabled: true
+    velocity_threshold: 0.1  # pixels/frame
+    duration_threshold: 2.0  # seconds
+  
+  # Collision detection
+  collision:
+    enabled: true
+    overlap_threshold: 0.3  # IoU threshold
+    velocity_drop_threshold: 0.5  # Relative velocity drop
+  
+  # Wrong direction
+  wrong_direction:
+    enabled: true
+    angle_threshold: 90  # degrees from expected direction
+  
+  # Crowd surge
+  crowd_surge:
+    enabled: true
+    density_increase_threshold: 2.0  # Multiplier
+    area_threshold: 0.1  # Fraction of frame
+
+# Gesture Control
+gesture_control:
+  enabled: true
+  min_detection_confidence: 0.5
+  min_tracking_confidence: 0.5
+  gesture_hold_time: 1.0  # seconds to hold gesture
+  
+  # Gesture mappings (finger count -> mode)
+  mappings:
+    1: "vehicle_density"
+    2: "pedestrian_density"
+    3: "heatmap"
+    4: "incident_detection"
+    5: "full_analytics"
+
+# Dashboard Configuration
+dashboard:
+  update_interval: 0.033  # ~30 FPS
+  graph_history_length: 100  # Data points for time-series
+  alert_duration: 5.0  # seconds to display alerts
+
+# Input Configuration
+input:
+  source: "webcam"  # Options: webcam, video_file
+  webcam_index: 0
+  video_path: ""  # Path to video file if source is video_file
+  frame_width: 1280
+  frame_height: 720
+
